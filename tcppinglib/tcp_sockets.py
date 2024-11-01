@@ -36,12 +36,13 @@ class TCPSocket:
     Base class for TCP sockets
     """
 
-    def __init__(self) -> None:
+    def __init__(self, source: str = '') -> None:
         self._sock = None
         try:
             self._sock = self._create_socket(
                 type=socket.SOCK_STREAM, proto=socket.IPPROTO_TCP
             )
+            self._sock.bind((source,0))
         except OSError as err:
             raise err
 

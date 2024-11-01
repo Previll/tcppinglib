@@ -40,6 +40,7 @@ def tcpping(
     count: int = 5,
     interval: float = 3,
     is_cli: bool = False,
+    source: str = '',
     print_errors: bool = False,
 ):
     url = ""
@@ -58,7 +59,7 @@ def tcpping(
     rtts = []
 
     for sequence in range(count):
-        with _Socket() as sock:
+        with _Socket(source) as sock:
             if sequence > 0:
                 time.sleep(interval)
 
@@ -87,6 +88,7 @@ async def async_tcpping(
     timeout: float = 2,
     count: int = 5,
     interval: float = 3,
+    source: str = '',
     print_errors: bool = False,
 ):
     url = ""
@@ -105,7 +107,7 @@ async def async_tcpping(
     rtts = []
 
     for sequence in range(count):
-        with AsyncTCPSocket(_Socket()) as sock:
+        with AsyncTCPSocket(_Socket(source)) as sock:
             if sequence > 0:
                 await asyncio.sleep(interval)
 

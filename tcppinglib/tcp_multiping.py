@@ -32,6 +32,7 @@ from .tcp_ping import async_tcpping
 async def async_multi_tcpping(
     addresses: list,
     port: int = 80,
+    source: str = '',
     timeout: float = 2,
     count: int = 5,
     interval: float = 3,
@@ -47,7 +48,8 @@ async def async_multi_tcpping(
                 tasks_pending, return_when=asyncio.FIRST_COMPLETED
             )
         task = loop.create_task(
-            async_tcpping(address, port, timeout, count, interval, print_errors)
+            async_tcpping(address, port, timeout, count,
+                          interval, source, print_errors)
         )
         tasks.append(task)
         tasks_pending.add(task)
@@ -58,6 +60,7 @@ async def async_multi_tcpping(
 def multi_tcpping(
     addresses: list,
     port: int = 80,
+    source: str = '',
     timeout: float = 2,
     count: int = 5,
     interval: float = 3,
@@ -72,6 +75,7 @@ def multi_tcpping(
             count=count,
             interval=interval,
             concurrent_tasks=concurrent_tasks,
+            source=source,
             print_errors=print_errors,
         )
     )

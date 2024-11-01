@@ -76,7 +76,13 @@ def parse_arguments():
         default=1,
         help="Interval in seconds between each ping request (default: 1).",
     )
-
+    parser.add_argument(
+        "-s",
+        "--source",
+        type=str,
+        default='',
+        help="The source IP address of the tcp connection (default: Chosen by OS).",
+    )
     parser.add_argument(
         "--print-errors",
         action="store_true",
@@ -110,6 +116,7 @@ def main():
             timeout=args.timeout,
             count=args.count,
             interval=args.interval,
+            source=args.source,
             is_cli=True,
             print_errors=args.print_errors,
         )
